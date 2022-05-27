@@ -51,7 +51,9 @@ func main() {
 	decode := flag.Bool("d", false, "Decode, reverse the translation, bmp to bin")
 	compress := flag.Bool("c", false, "Compression test")
 	verbose = flag.Bool("v", false, "Verbose")
-	imgWidth = flag.String("w", "auto", "Image width for output BMP\nauto - gives a 3/4 proportion image\n### - specify the exact with for uniformity")
+	imgWidth = flag.String("w", "auto", "Image width for output BMP\n"+
+		"auto - gives a 3/4 proportion image\n"+
+		"### - specify the exact width for uniformity")
 
 	flag.Parse()
 
