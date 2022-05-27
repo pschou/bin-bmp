@@ -1,7 +1,7 @@
 # BIN-BMP
 
 A utility to convert any binary file into a BMP file, align on the 4th byte,
-and look for patterns.   Useful for looking into new and unchartec binaries and
+and look for patterns.   Useful for looking into new and uncharted binaries and
 doing protocol inspection.
 
 
