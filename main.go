@@ -138,7 +138,7 @@ func Encode(w *os.File, r io.Reader, compress bool) error {
 	}
 
 	ntotal := (total + 4) &^ 4
-	h.Width = uint32(math.Ceil(math.Sqrt(float64(ntotal) / 3)))
+	h.Width = (uint32(math.Ceil(math.Sqrt(float64(ntotal)/3))) + 4) &^ 4
 	h.Height = uint32(math.Ceil(float64(total) / 4 / float64(h.Width)))
 	//fmt.Println("bytes written:", total)
 	//fmt.Println("h:", h.Height)
@@ -151,7 +151,7 @@ func Encode(w *os.File, r io.Reader, compress bool) error {
 	h.YPixelsPerMeter = h.XPixelsPerMeter
 	h.ImageSize = uint32(4 * int64(h.Height) * int64(h.Width))
 	h.FileSize += h.ImageSize
-	fmt.Println("filesize:", h.FileSize)
+	//fmt.Println("filesize:", h.FileSize)
 
 	w.Seek(0, io.SeekStart)
 	binary.Write(w, binary.LittleEndian, h)

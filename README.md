@@ -16,3 +16,12 @@ Usage: bin-bmp [options] input.bin output.bmp
   -c    Compression test
   -d    Reverse the encoding, bmp to bin
 ```
+
+## Example
+Running bin-bmp on bin-bmp will produce this output:
+
+```bash
+$ ./bin-bmp bin-bmp bim-bmp.bmp
+```
+Example output:
+![output](bin-bmp.bmp)
