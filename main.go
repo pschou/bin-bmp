@@ -44,7 +44,7 @@ func main() {
 
 	log.SetFlags(0)
 	log.SetPrefix("bmp-bin: ")
-	decode := flag.Bool("d", false, "Reverse the encoding, bmp to bin")
+	decode := flag.Bool("d", false, "Decode, reverse the translation, bmp to bin")
 	compress := flag.Bool("c", false, "Compression test")
 
 	flag.Parse()
