@@ -6,14 +6,21 @@ doing protocol inspection.
 
 
 ```bash
-bmp-bin,  Version: 0.1.20220527.1235 (https://github.com/pschou/bmp-bin)
-A utility to convert a bin to a bmp to look for patterns, alignment is done on every 4th byte, so 4 bytes -> 1 pixel.
+$ ./bin-bmp -h
+bmp-bin,  Version: 0.1.20220527.1328 (https://github.com/pschou/bmp-bin)
+A utility to convert a bin to a bmp to look for patterns, alignment is done on every
+  4th byte, so 4 bytes -> 1 pixel.
 NOTE: Only the first 3 bytes in a quad are used for RGB display, the 4th is omitted.
 
 Usage: bin-bmp [options] input.bin output.bmp
 
   -c    Compression test
   -d    Decode, reverse the translation, bmp to bin
+  -v    Verbose
+  -w string
+        Image width for output BMP
+        auto - gives a 3/4 proportion image
+        ### - specify the exact with for uniformity (default "auto")
 ```
 
 ## Example

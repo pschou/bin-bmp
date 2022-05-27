@@ -25,18 +25,22 @@ import (
 	"math"
 	"os"
 	"path"
+	"strconv"
 
 	"github.com/dsnet/compress/bzip2"
 	//"golang.org/x/crypto/salsa20"
 )
 
 var version string
+var imgWidth *string
+var verbose *bool
 
 func main() {
 	flag.Usage = func() {
 		_, f := path.Split(os.Args[0])
 		fmt.Fprintf(os.Stderr, "bmp-bin,  Version: %s (https://github.com/pschou/bmp-bin)\n"+
-			"A utility to convert a bin to a bmp to look for patterns, alignment is done on every 4th byte, so 4 bytes -> 1 pixel.\n"+
+			"A utility to convert a bin to a bmp to look for patterns, alignment is done on every\n"+
+			"  4th byte, so 4 bytes -> 1 pixel.\n"+
 			"NOTE: Only the first 3 bytes in a quad are used for RGB display, the 4th is omitted.\n\n"+
 			"Usage: %s [options] input.bin output.bmp\n\n", version, f)
 		flag.PrintDefaults()
@@ -46,6 +50,8 @@ func main() {
 	log.SetPrefix("bmp-bin: ")
 	decode := flag.Bool("d", false, "Decode, reverse the translation, bmp to bin")
 	compress := flag.Bool("c", false, "Compression test")
+	verbose = flag.Bool("v", false, "Verbose")
+	imgWidth = flag.String("w", "auto", "Image width for output BMP\nauto - gives a 3/4 proportion image\n### - specify the exact with for uniformity")
 
 	flag.Parse()
 
@@ -138,20 +144,33 @@ func Encode(w *os.File, r io.Reader, compress bool) error {
 	}
 
 	ntotal := (total + 4) &^ 4
-	h.Width = (uint32(math.Ceil(math.Sqrt(float64(ntotal)/3))) + 4) &^ 4
+	if *imgWidth != "auto" {
+		i, err := strconv.ParseUint(*imgWidth, 10, 32)
+		if err != nil {
+			return err
+		}
+		h.Width = uint32(i)
+	}
+	if h.Width == 0 {
+		h.Width = (uint32(math.Ceil(math.Sqrt(float64(ntotal)/3))) + 4) &^ 4
+	}
 	h.Height = uint32(math.Ceil(float64(total) / 4 / float64(h.Width)))
-	//fmt.Println("bytes written:", total)
-	//fmt.Println("h:", h.Height)
-	//fmt.Println("w:", h.Width)
-	//fmt.Println("h*w:", h.Height*h.Width*4)
+	if *verbose {
+		fmt.Println("bytes written:", total)
+		fmt.Println("h:", h.Height)
+		fmt.Println("w:", h.Width)
+		fmt.Println("h*w:", h.Height*h.Width*4)
 
-	//fmt.Println("extra to write:", 4*int64(h.Height)*int64(h.Width)-total)
+		fmt.Println("extra to write:", 4*int64(h.Height)*int64(h.Width)-total)
+	}
 	w.Write(make([]byte, 4*int64(h.Height)*int64(h.Width)-total))
 	h.XPixelsPerMeter = uint32(4*int64(h.Height)*int64(h.Width) - total)
 	h.YPixelsPerMeter = h.XPixelsPerMeter
 	h.ImageSize = uint32(4 * int64(h.Height) * int64(h.Width))
 	h.FileSize += h.ImageSize
-	//fmt.Println("filesize:", h.FileSize)
+	if *verbose {
+		fmt.Println("filesize:", h.FileSize)
+	}
 
 	w.Seek(0, io.SeekStart)
 	binary.Write(w, binary.LittleEndian, h)
