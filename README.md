@@ -29,5 +29,5 @@ Example output of a GoLang binary:
 ```bash
 $ ./bin-bmp /usr/bin/ssh ssh.bmp
 ```
-Example output of a C binary
+Example output of a C binary:
 ![output](ssh.bmp)
