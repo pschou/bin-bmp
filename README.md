@@ -18,16 +18,20 @@ Usage: bin-bmp [options] input.bin output.bmp
 ```
 
 ## Example
-Running bin-bmp on bin-bmp will produce this output:
+Running bin-bmp on binaries will produce output like this:
 
 ```bash
 $ ./bin-bmp bin-bmp bin-bmp.bmp
 ```
+
 Example output of a GoLang binary:
+
 ![output](bin-bmp.bmp)
 
 ```bash
 $ ./bin-bmp /usr/bin/ssh ssh.bmp
 ```
+
 Example output of a C binary:
+
 ![output](ssh.bmp)
