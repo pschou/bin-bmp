@@ -29,6 +29,16 @@ Example output of a GoLang binary:
 ![output](bin-bmp.bmp)
 
 ```bash
+$ upx --ultra-brute bin-bmp-upx
+$ ./bin-bmp bin-bmp-upx bin-bmp-upx.bmp
+```
+
+Example output of a GoLang binary compressed with upx:
+
+![output](bin-bmp-upx.bmp)
+
+
+```bash
 $ ./bin-bmp /usr/bin/ssh ssh.bmp
 ```
 
