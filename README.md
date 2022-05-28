@@ -53,7 +53,7 @@ Example output of a C binary:
 ![output](ssh.bmp)
 
 ```bash
-$ ./bin-bmp mindbright/ssh/SSHClient.java java.bmp
+$ ./bin-bmp mindbright/ssh/SSHClient.class java.bmp
 ```
 
 Example output of a Java binary:
