@@ -41,7 +41,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "bmp-bin,  Version: %s (https://github.com/pschou/bmp-bin)\n"+
 			"A utility to convert a bin to a bmp to look for patterns, alignment is done on every\n"+
 			"  4th byte, so 4 bytes -> 1 pixel.\n"+
-			"NOTE: Only the first 3 bytes in a quad are used for RGB display, the 4th is omitted.\n\n"+
+			"NOTE: Only the first 3 bytes in a quad are used for RGB display, the 4th is omitted.\n"+
+			"  The bottom left is byte 0 and the top row are the bytes up to N, then filled with 0s'.\n\n"+
 			"Usage: %s [options] input.bin output.bmp\n\n", version, f)
 		flag.PrintDefaults()
 	}
